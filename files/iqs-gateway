@@ -1,0 +1,48 @@
+#!/bin/sh
+#
+# iqs-gateway     Starts and stops iqs-gateway
+#    iqs-gateway (iQuipsys tracker gateway service)
+#
+# chkconfig: - 58 74
+# description: iqs-gateway is an iQuipsys tracker gateway service. \
+# http://www.iquipsys.com/
+
+### BEGIN INIT INFO
+# Provides: iqs-gateway
+# Required-Start: $network $local_fs
+# Required-Stop: $network $local_fs
+# Should-Start: $syslog $named
+# Should-Stop: $syslog $named
+# Short-Description: start and stop iqs-gateway
+# Description: iqs-gateway is an iQuipsys tracker gateway service.
+### END INIT INFO
+
+start() {
+    echo "Starting iqs-gateway..."
+    forever start --uid iqs-gateway --sourceDir=/home/root/iqs-gateway -a src/server.js -o /dev/null -e /dev/null
+}
+
+stop() {
+    echo "Stopping iqs-gateway..."
+    forever stop iqs-gateway
+}
+
+restart() {
+    echo "Restarting iqs-gateway..."
+    forever restart iqs-gateway
+}
+
+case "$1" in
+  start)
+        start
+        ;;
+  stop)
+        stop
+        ;;
+  restart)
+        restart
+        ;;
+  *)
+        echo $"Usage: $0 {start|stop|restart}"
+        exit 2
+esac

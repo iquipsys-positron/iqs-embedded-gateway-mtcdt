@@ -1,0 +1,27 @@
+{
+  "name": "iqs-embedded-gateway-mtcdt",
+  "version": "1.0.0",
+  "description": "MultiTech Conduit gateway firmware for iQuipsys Positron",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha -t 5000 -R spec -u tdd --recursive ./test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/iqs-embedded/iqs-embedded-gateway-mtcdt.git"
+  },
+  "author": "Sergey Seroukhov <seroukhov@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/iqs-embedded/iqs-embedded-gateway-mtcdt/issues"
+  },
+  "homepage": "https://gitlab.com/iqs-embedded/iqs-embedded-gateway-mtcdt#README",
+  "dependencies": {
+    "mqtt": "^1.0.0"
+  },
+  "devDependencies": {
+    "chai": "*",
+    "mocha": "*"
+  }
+}
+

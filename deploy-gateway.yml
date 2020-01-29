@@ -1,0 +1,47 @@
+---
+- name: Deploy iQuipsys gateway for MultiTech Conduit
+  hosts: all
+  gather_facts: False
+
+  pre_tasks:
+    - name: Install pkgutil
+      raw: opkg update && opkg install python-pkgutil
+    - setup: # aka gather_facts
+
+  tasks:
+    - name: Install forever
+      #sudo: True
+      npm: name=forever global=yes
+
+    # Todo: Implement Lora and Security configuration here
+
+    - name: Disable node-red
+      #sudo: True
+      raw: update-rc.d node-red remove
+
+    - name: Create firware folder
+      file: path=~/iqs-gateway state=directory
+
+    - name: Copy source code
+      copy: 
+        src: "{{item}}"
+        dest: ~/iqs-gateway
+      with_items:
+        - src
+        - package.json
+
+    - name: Install npm packages
+      npm: path=~/iqs-gateway
+
+    - name: Copy init script
+      #sudo: True
+      copy: src=files/iqs-gateway dest=/etc/init.d/iqs-gateway mode=0755
+
+    - name: Install init script
+      #sudo: True
+      raw: update-rc.d iqs-gateway defaults
+
+    - name: Start gateway service
+      #sudo: True
+      raw: /etc/init.d/iqs-gateway start
+
